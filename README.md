@@ -16,18 +16,29 @@ contact@WilliamAshley.music
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20-lightgrey)]()
 [![Format](https://img.shields.io/badge/Format-VST3%20%7C%20-orange)]()
 ITS AN EQ 
-TO DO - put all EQs in a commmon EQ Master Folder Or make some way of seeing all plugin classes easier, as they are effectively built off one another.
+
+TO DOs - put all EQs in a commmon EQ Master Folder Or make some way of seeing all plugin classes easier, as they are effectively built off one another.
 
 
 
 Alpha EQ 6
-EQ 6 is just a little house keeping on the FFT. It provides 4x finer bins below 500 Hz with the display crossfading the two branches together between 150–500 Hz.  Some scoping functions are applied for the analysis
-I havn't cross tested this with actual hardware to determine if represented values are correct.
+EQ 6 is just a little house keeping on the FFT. 
+What is new:
 
-A four-band stepped programme equaliser VST3 plugin for Windows, inspired by the API 550 EQ and continuing to grow from there. 
+EQ 6 provides 4x finer bins below 500 Hz with the display crossfading the two branches together between 150–500 Hz.  Some scoping functions are applied for the analysis
+I havn't cross tested this with actual hardware to determine if represented values are correct. 
 
+Visual Glitch from UTF8 symbol not being properly structured for the x in oversampling code issue fixed - well removed and replaced with an x.
+
+
+What it is:
+Alpha EQ is a four-band stepped programme equaliser VST3 plugin for Windows, inspired by the API 550 EQ and continuing to grow from there. 
+
+What you need to build from the source:
 Built with JUCE 8.0.12.
+It just needs plugin basics along with the DSP module.
 
+Description:
 Alpha EQ 6 is a four-band programme EQ with stepped frequency and gain controls, asymmetric transformer saturation, and a real-time FFT spectrum analyser with EQ curve overlay. It is designed for precision tonal shaping in the style of classic API 550B hardware, with optional "British" filter character mode and a choice of soft or hard saturation models.
 
 The plugin is intended for use in DAWs that support VST3 on Windows — tested in FL Studio.
