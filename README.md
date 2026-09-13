@@ -20,11 +20,15 @@ TO DO - put all EQs in a commmon EQ Master Folder Or make some way of seeing all
 
 
 
-AlphaEQ5
-A four-band stepped programme equaliser VST3 plugin for Windows, inspired by the API 550 EQ. 
+Alpha EQ 6
+EQ 6 is just a little house keeping on the FFT. It provides 4x finer bins below 500 Hz with the display crossfading the two branches together between 150–500 Hz.  Some scoping functions are applied for the analysis
+I havn't cross tested this with actual hardware to determine if represented values are correct.
+
+A four-band stepped programme equaliser VST3 plugin for Windows, inspired by the API 550 EQ and continuing to grow from there. 
+
 Built with JUCE 8.0.12.
 
-AlphaEQ5 is a four-band programme EQ with stepped frequency and gain controls, asymmetric transformer saturation, and a real-time FFT spectrum analyser with EQ curve overlay. It is designed for precision tonal shaping in the style of classic API 550B hardware, with optional "British" filter character mode and a choice of soft or hard saturation models.
+Alpha EQ 6 is a four-band programme EQ with stepped frequency and gain controls, asymmetric transformer saturation, and a real-time FFT spectrum analyser with EQ curve overlay. It is designed for precision tonal shaping in the style of classic API 550B hardware, with optional "British" filter character mode and a choice of soft or hard saturation models.
 
 The plugin is intended for use in DAWs that support VST3 on Windows — tested in FL Studio.
 
@@ -47,7 +51,7 @@ Shelf mode on the Low and High bands
 Filter Design
 
 Stereo biquad filters implemented via juce::dsp::ProcessorDuplicator, processing each channel independently with shared coefficients
-Double-precision coefficient computation — all biquad math is performed in double and downcast to float for the audio path. This eliminates frequency drift at low frequencies (e.g. a 40 Hz peak in float shifts by several Hz at 44.1 kHz; in double it is sub-millihertz accurate)
+Double-precision coefficient computation — all biquad math is performed in double and downcast to float for the audio path. This eliminates frequency drift at low frequencies.
 Proportional Q mode — Q scales with gain amount, narrowing at high boost/cut values to match API 550B hardware behaviour. Proportional Q range is 0.7–2.2 (API) or 1.0–2.8 (British mode)
 
 EQ Topology — API vs British (BRIT mode)
@@ -85,11 +89,16 @@ EQ curve overlay: the combined H(z) magnitude response of all active, non-bypass
 
 Global Controls Strip
 The strip between the title bar and band panels contains:
-ControlLED ColourFunctionBRITGreenBritish filter topology (shelf Q = 1.1, narrower peaks)HARDOrangeHard asymmetric clip mode (vs soft tanh)4x HQCyan4× oversampling (vs 2× standard)OUT TRIM—±4 dB output level trim slider
+Control LED Colour Function
+BRIT Green British filter topology (shelf Q = 1.1, narrower peaks)
+HARDO range Hard asymmetric clip mode (vs soft tanh)4x HQCyan4× oversampling (vs 2× standard)
+OUT TRIM ±4 dB output level trim slider
 
 Technical Notes
 Thread Architecture
-ThreadResponsibilitiesAudio threadprocessBlock: EQ filters, saturation, output trim, FIFO pushMessage threadparameterChanged: update smoother targets, set parametersChanged flagGUI thread (timer)FFT computation, EQ curve evaluation, repaint at 30 Hz
+ThreadResponsibilitiesAudio threadprocessBlock: EQ filters, saturation, output trim, FIFO pushMessage threadparameterChanged: update smoother targets, set parametersChanged flagGUI thread (timer)
+
+FFT computation, EQ curve evaluation this version is using a customized FFT method for scoping the limits of the processing, see the source for more details.
 The audio thread and GUI thread share data via:
 
 SpectrumFifo — lock-free double-buffer (audio → GUI)
